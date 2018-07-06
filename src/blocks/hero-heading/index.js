@@ -3,6 +3,7 @@ const { registerBlockType } = wp.blocks,
   __ = wp.i18n.__;
 
 import edit from './edit';
+import './editor';
 
 /**
  * Every block starts by registering a new block type definition.
@@ -26,12 +27,14 @@ registerBlockType('carrieforde-blocks/hero-heading', {
     title: {
       type: 'string',
       source: 'text',
-      selector: '.wp-block-carrieforde-blocks-hero-heading__title'
+      selector:
+        '.wp-block-carrieforde-blocks-hero-heading .wp-block-carrieforde-blocks__title'
     },
     content: {
       type: 'array',
       source: 'children',
-      selector: '.wp-block-carrieforde-blocks-hero-heading__content'
+      selector:
+        '.wp-block-carrieforde-blocks-hero-heading .wp-block-carrieforde-blocks__content'
     }
   },
 
@@ -57,7 +60,7 @@ registerBlockType('carrieforde-blocks/hero-heading', {
       backgroundClass = getColorClass('background-color', backgroundColor),
       textClass = getColorClass('color', textColor);
 
-    let classes = 'wp-block-carrieforde-blocks-hero-heading full-width';
+    let classes = 'wp-block-carrieforde-blocks full-width';
 
     if (backgroundClass !== undefined) {
       classes += ` has-background-color ${backgroundClass}`;
@@ -69,12 +72,10 @@ registerBlockType('carrieforde-blocks/hero-heading', {
 
     return (
       <section className={classes}>
-        <div className="wp-block-carrieforde-blocks-hero-heading__wrapper">
-          <h2 className="wp-block-carrieforde-blocks-hero-heading__title">
-            {title}
-          </h2>
+        <div className="wp-block-carrieforde-blocks__wrapper">
+          <h2 className="wp-block-carrieforde-blocks__title">{title}</h2>
           <RichText.Content
-            className="wp-block-carrieforde-blocks-hero-heading__content"
+            className="wp-block-carrieforde-blocks__content"
             tagName="div"
             value={content}
           />

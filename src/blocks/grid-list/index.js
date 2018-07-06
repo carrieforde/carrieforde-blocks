@@ -2,6 +2,8 @@ const { registerBlockType } = wp.blocks,
   { InnerBlocks } = wp.editor,
   __ = wp.i18n.__;
 
+import './style';
+
 /**
  * Every block starts by registering a new block type definition.
  * @see https://wordpress.org/gutenberg/handbook/block-api/
@@ -22,8 +24,8 @@ registerBlockType('carrieforde-blocks/grid-list', {
    * @param {Object} [props] Properties passed from the editor.
    * @return {Element}       Element to render.
    */
-  edit: () => (
-    <div className="grid-list">
+  edit: ({ className }) => (
+    <div className={className}>
       <InnerBlocks />
     </div>
   ),
@@ -36,7 +38,7 @@ registerBlockType('carrieforde-blocks/grid-list', {
    * @return {Element}       Element to render.
    */
   save: () => (
-    <div className="grid-list">
+    <div className="wp-block-carrieforde-blocks">
       <InnerBlocks.Content />
     </div>
   )

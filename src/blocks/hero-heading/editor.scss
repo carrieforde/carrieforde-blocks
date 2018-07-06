@@ -1,0 +1,21 @@
+@import "aurora-utilities";
+@import "../../config";
+
+.wp-block-carrieforde-blocks-hero-heading {
+	font-size: 1.25rem;
+	padding: $sp-single;
+
+	&__title {
+		background-color: transparent;
+		font-size: 1.66667em;
+		margin-bottom: $sp-single-half;
+	}
+
+	p {
+		margin-bottom: 1em;
+	}
+
+	a {
+		border-color: currentColor;
+	}
+}

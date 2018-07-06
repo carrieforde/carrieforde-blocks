@@ -1,0 +1,42 @@
+@import "aurora-utilities";
+@import "../config";
+
+// Colors
+@each $name, $color in $editor-palette {
+
+	.has-#{$name}-background-color {
+		background-color: $color;
+	}
+
+	.has-#{$name}-color {
+		color: $color;
+
+		a,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6 {
+			color: $color !important;
+		}
+	}
+}
+
+.wp-block-carrieforde-blocks {
+	padding: $sp-triple 0;
+
+	&__wrapper {
+		margin: 0 auto;
+		max-width: 100%;
+		padding: 0 $sp-double * 2 0 $sp-triple;
+		width: $content-width;
+
+		@include mq-min($tablet-landscape) {
+			padding: 0 5rem 0 4rem;
+		}
+
+		@include mq-min($desktop) {
+			padding: 0 $sp-double;
+		}
+	}
+}
