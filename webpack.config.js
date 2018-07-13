@@ -2,8 +2,7 @@ const webpack = require('webpack'),
   path = require('path'),
   ExtractTextPlugin = require('extract-text-webpack-plugin'),
   StyleLintPlugin = require('stylelint-webpack-plugin'),
-  BrowserSyncPlugin = require('browser-sync-webpack-plugin'),
-  SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
+  BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
 const config = {
   context: __dirname,
@@ -60,11 +59,7 @@ const config = {
       },
       {
         test: /\.svg$/,
-        loader: 'svg-sprite-loader',
-        options: {
-          extract: true,
-          spriteFilename: 'svg-defs.svg'
-        }
+        loader: 'svg-sprite-loader'
       },
       {
         test: /\.(jpe?g|png|gif)$/,
@@ -93,8 +88,7 @@ const config = {
   },
   plugins: [
     new StyleLintPlugin(),
-    new ExtractTextPlugin('main.css'),
-    new SpriteLoaderPlugin(),
+    new ExtractTextPlugin('[name].css'),
     new BrowserSyncPlugin({
       files: '**/*.php',
       injectChanges: true,
