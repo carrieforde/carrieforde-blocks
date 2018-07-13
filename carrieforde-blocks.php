@@ -48,7 +48,7 @@ function blocks_init() {
 
 	wp_register_style(
 		'block-styles',
-		CARRIEFORDE_BLOCKS_URL . 'dist/main.css',
+		CARRIEFORDE_BLOCKS_URL . 'dist/frontend.css',
 		array(
 			'wp-blocks',
 		),
@@ -61,3 +61,25 @@ function blocks_init() {
 		'style'         => 'block-styles',
 	) );
 }
+
+add_action( 'wp_enqueue_scripts', 'frontend_scripts' );
+
+function frontend_scripts() {
+
+	wp_enqueue_script(
+		'frontend-js',
+		CARRIEFORDE_BLOCKS_URL . 'dist/frontend-bundle.js',
+		array(),
+		null,
+		true
+	);
+
+	// Data for JS.
+	$vars = array(
+		'root_url' => home_url( '/' ),
+	);
+
+	wp_localize_script( 'frontend-js', 'cfBlocks', $vars );
+}
+
+require_once CARRIEFORDE_BLOCKS_PATH . 'src/blocks/projects/render.php';
