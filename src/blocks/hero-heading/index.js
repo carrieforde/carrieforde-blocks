@@ -3,6 +3,8 @@ const { registerBlockType } = wp.blocks,
   __ = wp.i18n.__;
 
 import edit from './edit';
+import logo from '../../icons/carrieforde_logo-color.svg';
+import Icon from '../../components/icon';
 import './editor';
 
 /**
@@ -11,7 +13,7 @@ import './editor';
  */
 registerBlockType('carrieforde-blocks/hero-heading', {
   title: __('Hero Heading'),
-  icon: 'heart',
+  icon: <Icon icon={logo} className="icon-logo" />,
   category: 'widgets',
   supports: {
     html: false,

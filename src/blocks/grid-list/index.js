@@ -2,6 +2,8 @@ const { registerBlockType } = wp.blocks,
   { InnerBlocks } = wp.editor,
   __ = wp.i18n.__;
 
+import logo from '../../icons/carrieforde_logo-color.svg';
+import Icon from '../../components/icon';
 import './style';
 
 /**
@@ -10,7 +12,7 @@ import './style';
  */
 registerBlockType('carrieforde-blocks/grid-list', {
   title: __('Grid List'),
-  icon: 'heart',
+  icon: <Icon icon={logo} className="icon-logo" />,
   category: 'widgets',
   supports: {
     html: false
