@@ -26,11 +26,14 @@ registerBlockType('carrieforde-blocks/grid-list', {
    * @param {Object} [props] Properties passed from the editor.
    * @return {Element}       Element to render.
    */
-  edit: ({ className }) => (
-    <div className={className}>
-      <InnerBlocks />
-    </div>
-  ),
+  edit: ({ className }) => {
+    const TEMPLATE = [['core/list', { ordered: true }]];
+    return (
+      <div className={className}>
+        <InnerBlocks template={TEMPLATE} templateLock="all" />
+      </div>
+    );
+  },
 
   /**
    * The save function defines the way in which the different attributes should be combined
