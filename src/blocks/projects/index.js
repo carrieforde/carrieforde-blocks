@@ -1,5 +1,6 @@
 const { registerBlockType } = wp.blocks,
-  { withAPIData } = wp.components,
+  { withAPIData, CheckboxControl, SelectControl } = wp.components,
+  { InspectorControls } = wp.editor,
   __ = wp.i18n.__;
 
 import Project from '../../components/Project';
@@ -17,7 +18,13 @@ registerBlockType('carrieforde-blocks/projects', {
   icon: <Icon icon={logo} className="icon-logo" />,
   category: 'widgets',
   supports: {
-    html: false
+    html: false,
+    multiple: false
+  },
+  attributes: {
+    categories: {
+      type: 'array'
+    }
   },
 
   /**
@@ -30,10 +37,13 @@ registerBlockType('carrieforde-blocks/projects', {
    */
   edit: withAPIData(() => {
     return {
-      projects: '/wp/v2/portfolio'
+      projects: '/wp/v2/portfolio',
+      categories: '/wp/v2/project-category'
     };
-  })(({ projects, className }) => {
-    if (!projects.data) {
+  })(({ projects, categories, className, setAttributes, attributes }) => {
+    const onCategoryChange = categories => setAttributes({ categories });
+
+    if (!projects.data || !categories.data) {
       return <Icon icon={spinner} className="icon-spinner" />;
     }
 
@@ -43,9 +53,25 @@ registerBlockType('carrieforde-blocks/projects', {
 
     return (
       <div className={className}>
-        {projects.data.map(project => (
-          <Project key={project.id} {...project} />
-        ))}
+        <InspectorControls>
+          <SelectControl
+            multiple
+            label={__('Select categories to display')}
+            value={attributes.categories} // e.g: value = [ 'a', 'c' ]
+            onChange={onCategoryChange}
+            options={categories.data.map(category => ({
+              value: category.id,
+              label: category.name
+            }))}
+          />
+        </InspectorControls>
+        {projects.data
+          .filter(function(project) {
+            if (0 <= this.indexOf(project['project-category'].toString())) {
+              return project;
+            }
+          }, attributes.categories)
+          .map(project => <Project key={project.id} {...project} />)}
       </div>
     );
   }),

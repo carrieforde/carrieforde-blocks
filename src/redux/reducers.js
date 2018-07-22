@@ -1,11 +1,12 @@
 // @flow
-import { FETCH_PROJECTS, CURRENT_PAGE } from './actions';
+import { FETCH_PROJECTS, CURRENT_PAGE, PROJECT_CATEGORIES } from './actions';
 
 const DEFAULT_STATE = {
   projects: {},
   totalProjects: 0,
   projectPages: 0,
-  currentPage: 0
+  currentPage: 0,
+  projectCategories: []
 };
 
 const fetchProjects = (state, action) =>
@@ -20,7 +21,9 @@ const fetchProjects = (state, action) =>
   });
 
 const updateCurrentPage = (state, action) =>
-  Object.assign({}, state, { currentPage: parseInt(action.payload.currentPage) });
+  Object.assign({}, state, {
+    currentPage: parseInt(action.payload.currentPage)
+  });
 
 const rootReducer = (state: Object = DEFAULT_STATE, action: Object) => {
   switch (action.type) {

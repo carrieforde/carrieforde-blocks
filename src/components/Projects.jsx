@@ -1,7 +1,11 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getAPIData, fetchProjects } from '../redux/actionCreators';
+import {
+  getAPIData,
+  fetchProjects,
+  updateProjectCategories
+} from '../redux/actionCreators';
 import Icon from './Icon';
 import Project from './Project';
 import Pagination from './Pagination';
@@ -12,20 +16,21 @@ type Props = {
   totalProjects: number,
   projectPages: number,
   currentPage: number,
-  getProjects: Function
+  getProjects: Function,
+  categories: Array<string>
 };
 
 class Projects extends Component<Props> {
   componentDidMount() {
-    const { projects, getProjects } = this.props;
+    const { projects, getProjects, categories } = this.props;
 
     if (0 === Object.keys(projects).length) {
-      getProjects(1);
+      getProjects(1, '154,147');
     }
   }
 
   render() {
-    const { projects, currentPage } = this.props;
+    const { projects, currentPage, categories } = this.props;
 
     let portfolio;
 
@@ -39,13 +44,13 @@ class Projects extends Component<Props> {
     return (
       <div ref={node => (this.el = node)} className="projects">
         {portfolio}
-        <Pagination parent={this.el} />
+        <Pagination parent={this.el} categories={categories} />
       </div>
     );
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   return {
     projects: state.projects,
     totalProjects: state.totalProjects,
@@ -55,8 +60,14 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = (dispatch: Function) => ({
-  getProjects(page) {
-    dispatch(getAPIData(`wp/v2/portfolio?per_page=5`, fetchProjects, page));
+  getProjects(page, categories) {
+    dispatch(
+      getAPIData(
+        `wp/v2/portfolio?per_page=5&project-category=${categories}`,
+        fetchProjects,
+        page
+      )
+    );
   }
 });
 

@@ -19,11 +19,17 @@ type Props = {
 
 class Pagination extends Component<Props> {
   getPreviousPage = () => {
-    const { projects, currentPage, getProjects, updatePage } = this.props,
+    const {
+        projects,
+        currentPage,
+        getProjects,
+        updatePage,
+        categories
+      } = this.props,
       updatedPage = currentPage - 1;
 
     if (projects[updatedPage] === undefined) {
-      getProjects(updatedPage);
+      getProjects(updatedPage, categories.toString());
     } else {
       updatePage(updatedPage);
     }
@@ -32,11 +38,17 @@ class Pagination extends Component<Props> {
   };
 
   getNextPage = () => {
-    const { projects, currentPage, getProjects, updatePage } = this.props,
+    const {
+        projects,
+        currentPage,
+        getProjects,
+        updatePage,
+        categories
+      } = this.props,
       updatedPage = currentPage + 1;
 
     if (projects[updatedPage] === undefined) {
-      getProjects(updatedPage);
+      getProjects(updatedPage, categories.toString());
     } else {
       updatePage(updatedPage);
     }
@@ -84,9 +96,13 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = (dispatch: Function) => ({
-  getProjects(page) {
+  getProjects(page, categories) {
     dispatch(
-      getAPIData(`wp/v2/portfolio?per_page=5&page=${page}`, fetchProjects, page)
+      getAPIData(
+        `wp/v2/portfolio?per_page=5&page=${page}&project-category=${categories}`,
+        fetchProjects,
+        page
+      )
     );
   },
   updatePage(page) {
