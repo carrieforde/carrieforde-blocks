@@ -81,5 +81,3 @@ function frontend_scripts() {
 
 	wp_localize_script( 'frontend-js', 'cfBlocks', $vars );
 }
-
-require_once CARRIEFORDE_BLOCKS_PATH . 'src/blocks/projects/render.php';

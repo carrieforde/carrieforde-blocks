@@ -65,13 +65,14 @@ registerBlockType('carrieforde-blocks/projects', {
             }))}
           />
         </InspectorControls>
-        {projects.data
-          .filter(function(project) {
-            if (0 <= this.indexOf(project['project-category'].toString())) {
-              return project;
-            }
-          }, attributes.categories)
-          .map(project => <Project key={project.id} {...project} />)}
+        {attributes.categories &&
+          projects.data
+            .filter(function(project) {
+              if (0 <= this.indexOf(project['project-category'].toString())) {
+                return project;
+              }
+            }, attributes.categories)
+            .map(project => <Project key={project.id} {...project} />)}
       </div>
     );
   }),
@@ -83,5 +84,14 @@ registerBlockType('carrieforde-blocks/projects', {
    *
    * @return {Element}       Element to render.
    */
-  save: () => null
+  save: ({ attributes }) => {
+    const { categories } = attributes;
+
+    return (
+      <div
+        data-categories={JSON.stringify(categories)}
+        className="wp-block-carrieforde-blocks wp-block-carrieforde-blocks-projects"
+      />
+    );
+  }
 });

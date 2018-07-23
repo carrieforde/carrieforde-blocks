@@ -25,7 +25,7 @@ class Projects extends Component<Props> {
     const { projects, getProjects, categories } = this.props;
 
     if (0 === Object.keys(projects).length) {
-      getProjects(1, '154,147');
+      getProjects(1, categories);
     }
   }
 
