@@ -7,7 +7,7 @@ function carrieforde_blocks_projects( $attributes ) {
 	ob_start();
 	?>
 
-	<div data-categories="<?php echo esc_attr( $categories ); ?>" class="wp-block-carrieforde-blocks-projects"></div>
+	<div data-categories="<?php echo esc_attr( $categories ); ?>" class="wp-block-carrieforde-blocks wp-block-carrieforde-blocks-projects"></div>
 
 	<?php
 	return ob_get_clean();

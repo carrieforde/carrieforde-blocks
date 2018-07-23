@@ -4,7 +4,6 @@ const { registerBlockType } = wp.blocks,
 
 import logo from '../../icons/carrieforde_logo-color.svg';
 import Icon from '../../components/icon';
-import './style';
 
 /**
  * Every block starts by registering a new block type definition.
