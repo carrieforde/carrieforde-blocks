@@ -1,7 +1,8 @@
 const { registerBlockType } = wp.blocks,
-  { getColorClass, RichText } = wp.editor,
+  { getColorClassName, RichText } = wp.editor,
   __ = wp.i18n.__;
 
+import classnames from 'classnames';
 import edit from './edit';
 import logo from '../../icons/carrieforde_logo-color.svg';
 import Icon from '../../components/icon';
@@ -59,18 +60,14 @@ registerBlockType('carrieforde-blocks/hero-heading', {
    */
   save: ({ attributes }) => {
     const { backgroundColor, textColor, title, content } = attributes,
-      backgroundClass = getColorClass('background-color', backgroundColor),
-      textClass = getColorClass('color', textColor);
-
-    let classes = 'wp-block-carrieforde-blocks full-width';
-
-    if (backgroundClass !== undefined) {
-      classes += ` has-background-color ${backgroundClass}`;
-    }
-
-    if (textClass !== undefined) {
-      classes += ` has-text-color ${textClass}`;
-    }
+      backgroundClass = getColorClassName('background-color', backgroundColor),
+      textClass = getColorClassName('color', textColor),
+      classes = classnames('wp-block-carrieforde-blocks full-width', {
+        'has-background-color': backgroundClass,
+        [backgroundClass]: backgroundClass,
+        'has-text-color': textClass,
+        [textClass]: textClass
+      });
 
     return (
       <section className={classes}>

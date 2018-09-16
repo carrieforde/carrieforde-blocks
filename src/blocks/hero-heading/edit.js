@@ -2,10 +2,12 @@ const {
     InspectorControls,
     PlainText,
     RichText,
-    PanelColor,
+    PanelColorSettings,
     withColors
   } = wp.editor,
   __ = wp.i18n.__;
+
+import classnames from 'classnames';
 
 const HeroHeadingEdit = props => {
   const {
@@ -19,30 +21,29 @@ const HeroHeadingEdit = props => {
     } = props,
     { title, content } = attributes,
     onTitleChange = text => setAttributes({ title: text }),
-    onContentChange = text => setAttributes({ content: text });
-
-  let classes;
-
-  if (backgroundColor.class !== undefined) {
-    classes = `${backgroundColor.class}`;
-  }
-
-  if (textColor.class !== undefined) {
-    classes += ` ${textColor.class}`;
-  }
+    onContentChange = text => setAttributes({ content: text }),
+    classes = classnames(className, {
+      [backgroundColor.class]: backgroundColor.class,
+      [textColor.class]: textColor.class
+    });
 
   return (
-    <div className={`${className} ${classes}`}>
+    <div className={classes}>
       <InspectorControls>
-        <PanelColor
-          colorValue={backgroundColor.value}
-          title={__(`Background Color`)}
-          onChange={setBackgroundColor}
-        />
-        <PanelColor
-          colorValue={textColor.value}
-          title={__(`Text Color`)}
-          onChange={setTextColor}
+        <PanelColorSettings
+          title={__('Color Settings')}
+          colorSettings={[
+            {
+              value: backgroundColor.color,
+              onChange: setBackgroundColor,
+              label: __('Background Color')
+            },
+            {
+              value: textColor.color,
+              onChange: setTextColor,
+              label: __('Text Color')
+            }
+          ]}
         />
       </InspectorControls>
       <PlainText
