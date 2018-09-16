@@ -1,6 +1,7 @@
 const { registerBlockType } = wp.blocks,
-  { withAPIData, CheckboxControl, SelectControl } = wp.components,
+  { SelectControl } = wp.components,
   { InspectorControls } = wp.editor,
+  { withSelect } = wp.data,
   __ = wp.i18n.__;
 
 import Project from '../../components/Project';
@@ -35,19 +36,22 @@ registerBlockType('carrieforde-blocks/projects', {
    * @param {Object} [props] Properties passed from the editor.
    * @return {Element}       Element to render.
    */
-  edit: withAPIData(() => {
+  edit: withSelect(select => {
     return {
-      projects: '/wp/v2/portfolio',
-      categories: '/wp/v2/project-category'
+      projects: select('core').getEntityRecords('postType', 'cfa-portfolio'),
+      categories: select('core').getEntityRecords(
+        'taxonomy',
+        'cfa-project-category'
+      )
     };
   })(({ projects, categories, className, setAttributes, attributes }) => {
     const onCategoryChange = categories => setAttributes({ categories });
 
-    if (!projects.data || !categories.data) {
+    if (!projects || !categories) {
       return <Icon icon={spinner} className="icon-spinner" />;
     }
 
-    if (0 === projects.data.length) {
+    if (0 === projects.length) {
       return 'Sorry, no projects.';
     }
 
@@ -59,14 +63,14 @@ registerBlockType('carrieforde-blocks/projects', {
             label={__('Select categories to display')}
             value={attributes.categories} // e.g: value = [ 'a', 'c' ]
             onChange={onCategoryChange}
-            options={categories.data.map(category => ({
+            options={categories.map(category => ({
               value: category.id,
               label: category.name
             }))}
           />
         </InspectorControls>
         {attributes.categories &&
-          projects.data
+          projects
             .filter(function(project) {
               if (0 <= this.indexOf(project['project-category'].toString())) {
                 return project;
