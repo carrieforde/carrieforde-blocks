@@ -1,4 +1,5 @@
 import './blocks/base';
-import './blocks/grid-list/index';
-import './blocks/hero-heading/index';
-import './blocks/projects/index';
+import './blocks/grid-list';
+import './blocks/hero-heading';
+import './blocks/projects';
+import './blocks/code';
