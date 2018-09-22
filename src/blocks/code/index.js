@@ -46,8 +46,10 @@ registerBlockType('carrieforde-blocks/code', {
       {
         type: 'block',
         blocks: ['core/code'],
-        transform: content =>
-          createBlock('carrieforde-blocks/code', { content })
+        transform: attributes => {
+          const { content } = attributes;
+          return createBlock('carrieforde-blocks/code', { code: content });
+        }
       }
     ]
   },
