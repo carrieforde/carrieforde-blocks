@@ -63,7 +63,9 @@ function blocks_init() {
 }
 
 add_action( 'wp_enqueue_scripts', 'frontend_scripts' );
-
+/**
+ * Enqueue front end JavaScript.
+ */
 function frontend_scripts() {
 
 	wp_enqueue_script(
@@ -80,4 +82,18 @@ function frontend_scripts() {
 	);
 
 	wp_localize_script( 'frontend-js', 'cfBlocks', $vars );
+}
+
+add_filter( 'block_categories', 'cfb_block_categories', 10, 2 );
+/**
+ * Adds custom block categories.
+ */
+function cfb_block_categories( $categories, $post ) {
+
+	return array_merge( $categories, array(
+		array(
+			'slug'  => 'carrieforde-blocks',
+			'title' => 'Carrie Forde Content Blocks',
+		),
+	) );
 }
