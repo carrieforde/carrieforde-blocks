@@ -31,8 +31,10 @@ function blocks_init() {
 		CARRIEFORDE_BLOCKS_URL . 'dist/editor-bundle.js',
 		array(
 			'wp-blocks',
-			'wp-i18n',
+			'wp-components',
+			'wp-editor',
 			'wp-element',
+			'wp-i18n',
 		),
 		null
 	);
