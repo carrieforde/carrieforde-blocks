@@ -42,18 +42,14 @@ function blocks_init() {
 	wp_register_style(
 		'block-editor-styles',
 		CARRIEFORDE_BLOCKS_URL . 'dist/editor.css',
-		array(
-			'wp-blocks',
-		),
+		array(),
 		null
 	);
 
 	wp_register_style(
 		'block-styles',
 		CARRIEFORDE_BLOCKS_URL . 'dist/frontend.css',
-		array(
-			'wp-blocks',
-		),
+		array(),
 		null
 	);
 
